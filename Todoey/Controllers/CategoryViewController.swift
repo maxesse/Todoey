@@ -15,8 +15,8 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadItems()
-
+        loadCategories()
+        
     }
     
     //MARK: TableView Datasource Methods
@@ -34,7 +34,7 @@ class CategoryViewController: UITableViewController {
     
     //MARK: Data Manipulation Methods
     
-    func saveItems() {
+    func saveCategories() {
         do {
             try context.save()
         } catch {
@@ -43,8 +43,8 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadItems(with request : NSFetchRequest<Category> = Category.fetchRequest()) {
-        
+    func loadCategories() {
+        let request : NSFetchRequest<Category> = Category.fetchRequest()
         do {
             categoryArray = try context.fetch(request)
         } catch {
@@ -65,7 +65,8 @@ class CategoryViewController: UITableViewController {
             let newCategory = Category(context: self.context)
             newCategory.name = textField.text!
             self.categoryArray.append(newCategory)
-            self.saveItems()
+            self.saveCategories()
+            
         }
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new category"
