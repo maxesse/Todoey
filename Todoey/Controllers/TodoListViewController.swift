@@ -42,7 +42,7 @@ class TodoListViewController: SwipeTableViewController {
         } else {
             cell.textLabel?.text = "No Items Added"
         }
-        cell.backgroundColor = UIColor(hexString: todoItems?[indexPath.row].colour ?? "#FFFFFF")
+        cell.backgroundColor = UIColor(hexString: todoItems?[indexPath.row].colour ?? "1D9BF6")
         return cell
     }
     
