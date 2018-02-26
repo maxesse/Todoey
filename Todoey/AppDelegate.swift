@@ -18,14 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
 
-        do {
-            let realm = try Realm()
-
-        } catch {
-            print("Error initialising new realm \(error)")
-        }
+        let config = Realm.Configuration(
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < 1) {
+                    migration.enumerateObjects(ofType: Category.className()) { (old, new) in
+                        new!["dateCreated"] = Date()
+                    }
+                    migration.enumerateObjects(ofType: Item.className()) { (old, new) in
+                        new!["dateCreated"] = Date()
+                    }
+                }
+        })
+        
+        Realm.Configuration.defaultConfiguration = config
         
         return true
     }
