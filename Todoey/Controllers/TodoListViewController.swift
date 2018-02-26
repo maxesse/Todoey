@@ -26,7 +26,7 @@ class TodoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 80.0
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -35,7 +35,6 @@ class TodoListViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.textLabel?.text = todoItems?[indexPath.row].title ?? "No Items Added Yet"
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
@@ -113,7 +112,7 @@ class TodoListViewController: SwipeTableViewController {
     
     override func updateModel(at indexPath: IndexPath) {
         // Update our data model
-        if let itemForDeletion = self.todoItems?[indexPath.row] {
+        if let itemForDeletion = todoItems?[indexPath.row] {
             do {
                 try self.realm.write {
                     self.realm.delete(itemForDeletion)
