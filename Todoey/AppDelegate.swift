@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import RealmSwift
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        print(Realm.Configuration.defaultConfiguration.fileURL!)
 
         let config = Realm.Configuration(
-            schemaVersion: 1,
+            schemaVersion: 2,
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 1) {
                     migration.enumerateObjects(ofType: Category.className()) { (old, new) in
@@ -29,6 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     migration.enumerateObjects(ofType: Item.className()) { (old, new) in
                         new!["dateCreated"] = Date()
+                    }
+                }
+                if (oldSchemaVersion < 2) {
+                    migration.enumerateObjects(ofType: Category.className()) { (old, new) in
+                        new!["colour"] = UIColor.randomFlat.hexValue()
+                    }
+                    migration.enumerateObjects(ofType: Item.className()) { (old, new) in
+                        new!["colour"] = UIColor.randomFlat.hexValue()
                     }
                 }
         })
