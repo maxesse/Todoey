@@ -90,6 +90,7 @@ class CategoryViewController: SwipeTableViewController {
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
+
         let alert = UIAlertController(title: "Add New Todoey Category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //What will happen once the user clicks the Add Item button on our UIAlert
@@ -101,6 +102,7 @@ class CategoryViewController: SwipeTableViewController {
         }
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new category"
+            alertTextField.autocapitalizationType = .words
             textField = alertTextField
         }
         
