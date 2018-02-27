@@ -36,9 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     migration.enumerateObjects(ofType: Category.className()) { (old, new) in
                         new!["colour"] = UIColor.randomFlat.hexValue()
                     }
-                    migration.enumerateObjects(ofType: Item.className()) { (old, new) in
-                        new!["colour"] = UIColor.randomFlat.hexValue()
-                    }
                 }
         })
         
